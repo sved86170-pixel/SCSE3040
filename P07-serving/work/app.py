@@ -46,14 +46,12 @@ def predict(order: Order):
     minutes = float(model.predict(row)[0])
     return Prediction(delivery_min=round(minutes, 1),
                       model_version=app.version)
-
-
-
 @app.get("/model-info")
 def model_info():
     "Describe the model this service is running."
+    # TODO: return the three keys described in the task
     return {
         "features": FEATURES,
         "model_type": type(model).__name__,
-        "version": app.version,
+        "version": app.version
     }

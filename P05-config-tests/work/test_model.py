@@ -30,6 +30,18 @@ def test_error_is_better_than_guessing(model_mae, baseline_mae):
 
 
 def test_heavier_traffic_is_never_faster(trained_model):
-    light = trained_model.predict(make_order(traffic_level=1))[0]
-    heavy = trained_model.predict(make_order(traffic_level=3))[0]
-    assert heavy >= light
+    # TODO: predict the same order at traffic level 1 and 3,
+    #       then assert level 3 is not faster.
+
+    # Create the same order with traffic level 1
+    order_light = make_order(traffic_level=1)
+
+    # Create the same order with traffic level 3
+    order_heavy = make_order(traffic_level=3)
+
+    # Predict delivery times
+    pred_light = trained_model.predict(order_light)[0]
+    pred_heavy = trained_model.predict(order_heavy)[0]
+
+    # Assert that heavier traffic is never predicted to be faster
+    assert pred_heavy >= pred_light
